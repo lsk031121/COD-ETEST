@@ -1,0 +1,31 @@
+version: '3'
+services:
+    web:
+        image: code-test-server
+        container_name: web
+        volumes:
+            - ./myapp:/root/myapp
+        ports:
+            - "127.0.0.1:3000:3000"
+        depends_on:
+            - mysql
+        links:
+            - mysql    
+        command: ["./wait-for-it.sh", "mysql:3306","--","npm","start"]
+        networks:
+            - app-network
+    mysql:
+        image: mysql
+        restart: always
+        container_name: mysql
+        ports:
+            - "127.0.0.1:3306:3306"
+        volumes:
+            - ./data:/var/lib/mysql
+        environment: 
+            MYSQL_ROOT_PASSWORD: 123456
+        networks:
+            - app-network
+networks:
+    app-network:
+        driver: bridge
