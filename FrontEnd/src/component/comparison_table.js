@@ -38,7 +38,7 @@ function ComparisonTable() {
     useEffect(() => {
         if(error)
             Swal.fire(
-                'Opps,cant get the response from the server',
+                'Opps,cant get the response from the server11',
                 'Please try later',
                 'error'
             )
